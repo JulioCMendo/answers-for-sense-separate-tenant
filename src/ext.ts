@@ -596,7 +596,7 @@ export default function ext() {
     ref: "props.assistantHelpText",
   };
 
-  const enableHostAuthButton = {
+  const enableExtHost = {
     component: "switch",
     type: "boolean",
     ref: "props.enableExternalHost",
@@ -821,7 +821,6 @@ export default function ext() {
         items: {
           assistantId,
           assistantHelpText,
-          enableHostAuthButton
         },
       }
     },
@@ -831,6 +830,7 @@ export default function ext() {
     type: "items",
     component: "accordion",
     items: {
+      enableExtHost,
       externalHostHelpText,
       externalHost: {
         grouped: true,
