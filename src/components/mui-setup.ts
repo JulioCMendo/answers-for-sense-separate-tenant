@@ -1,8 +1,7 @@
 import { createTheme, type Direction, ThemeOptions } from "@mui/material/styles";
-import theme from "@qlik-trial/sprout/theme/theme";
 
 export default function muiSetup(direction: Direction | undefined, lightOrDark: "light" | "dark") {
-  const baseTheme = createTheme({ ...theme(lightOrDark), direction });
+  const baseTheme = createTheme({ direction });
 
   // Ensure that typography and transitions are properly defined
   const extendedBaseTheme = createTheme({

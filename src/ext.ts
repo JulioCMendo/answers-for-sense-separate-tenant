@@ -600,16 +600,14 @@ export default function ext() {
     component: "switch",
     type: "boolean",
     ref: "props.enableExternalHost",
-    translation: "Use Assistant hosted externally",
+    translation: "Enable External Host?",
     defaultValue: false,
     options: [
       {
         value: true,
-        translation: "properties.extHostOn",
       },
       {
         value: false,
-        translation: "properties.extHostOff",
       },
     ],
   };
@@ -621,9 +619,8 @@ export default function ext() {
   };
 
   const hostUrl = {
-    component: "expression",
     ref: "props.hostUrl",
-    expressionType: "StringExpression",
+    type: "string",
     translation: "Host URL",
     placeholder: "https://...",
     defaultValue: "",
@@ -642,22 +639,11 @@ export default function ext() {
     ],
   };
 
-  const clientId = {
-    component: "expression",
-    ref: "props.clientId",
-    expressionType: "StringExpression",
-    translation: "Client ID",
+  const authMethodId = {
+    ref: "props.authMethodId",
+    type: "string",
+    translation: "Authentication ID",
     defaultValue: "",
-    show: (layout: Layout) => layout.props.authMethod === "clientId",
-  };
-
-  const webIntegrationId = {
-    component: "expression",
-    ref: "props.webIntegrationId",
-    expressionType: "StringExpression",
-    translation: "Web Integration ID",
-    defaultValue: "",
-    show: (layout: Layout) => layout.props.authMethod === "webIntegrationId",
   };
 
   const icon = {
@@ -808,11 +794,33 @@ export default function ext() {
     },
   };
 
+  const extHostAndAuth = {
+    type: "items",
+    component: "items",
+    items: {
+      hostUrl,
+      authMethod,
+      authMethodId
+    },
+    show: (layout: Layout) => layout.props.enableExternalHost,
+  }
+
   const definition = {
     type: "items",
     component: "accordion",
     items: {
       settings,
+      externalHost: {
+        grouped: true,
+        type: "items",
+        label: "External Host & Authentication",
+        component: "items",
+        items: {
+          externalHostHelpText,
+          enableExtHost,
+          extHostAndAuth,
+        }
+      },
       assistant: {
         grouped: true,
         type: "items",
@@ -822,35 +830,12 @@ export default function ext() {
           assistantId,
           assistantHelpText,
         },
-      }
+      },
     },
   };
 
-  const hostDefinition = {
-    type: "items",
-    component: "accordion",
-    items: {
-      externalHost: {
-        grouped: true,
-        type: "items",
-        label: "External Host & Authentication",
-        component: "items",
-        items: {
-          hostUrl,
-          authMethod,
-          clientId,
-          webIntegrationId
-        }
-      }
-    },
-    show: (layout: Layout) => layout.props.enableExternalHost,
-  }
-
   return {
     definition,
-    enableExtHost,
-    externalHostHelpText,
-    hostDefinition,
     support: {
       snapshot: false,
       export: true,
