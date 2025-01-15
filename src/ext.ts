@@ -830,8 +830,6 @@ export default function ext() {
     type: "items",
     component: "accordion",
     items: {
-      enableExtHost,
-      externalHostHelpText,
       externalHost: {
         grouped: true,
         type: "items",
@@ -850,6 +848,8 @@ export default function ext() {
 
   return {
     definition,
+    enableExtHost,
+    externalHostHelpText,
     hostDefinition,
     support: {
       snapshot: false,
