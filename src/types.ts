@@ -31,6 +31,8 @@ export interface Layout extends GenericObjectLayout {
     assistantId: string;
     useDialog: boolean;
     theme: "qlik-light" | "qlik-dark";
+    authMethod: "clientId" | "webIntegrationId"; 
+    enableExternalHost: boolean;
     icon?: string;
     iconSize?: number;
     iconColor?: Color;
