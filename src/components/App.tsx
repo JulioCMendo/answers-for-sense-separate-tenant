@@ -3,8 +3,8 @@ import { AppProps } from '../types';
 import { ThemeProvider } from '@mui/material/styles';
 import { Dialog, DialogTitle, DialogContent, IconButton, Box, Typography, useMediaQuery } from '@mui/material';
 import muiSetup from "../components/mui-setup";
-import CloseIcon from '@qlik-trial/sprout/icons/react/Close';
-import * as Icons from "@qlik-trial/sprout/icons/react";
+// import CloseIcon from '@qlik-trial/sprout/icons/react/Close';
+// import * as Icons from "@qlik-trial/sprout/icons/react";
 
 const App: React.FC<AppProps> = ({ layout, interactions, options, rect }) => {
   const [open, setOpen] = useState(false);
@@ -25,28 +25,28 @@ const App: React.FC<AppProps> = ({ layout, interactions, options, rect }) => {
 
   const actualIconSize = calculateIconSize();
 
-  const loadIcon = (iconName: string | undefined) => {
-    if (iconName === "None") return null;
-    const finalIconName = !iconName ? "ChatOutline" : iconName;
-    const NestedObject = (Icons as any)[finalIconName + 'Icon'] as unknown as {
-      default: React.ComponentType<{
-        height: string | number,
-        width: string | number,
-        color: string
-      }>
-    };
-    if (NestedObject && NestedObject.default) {
-      const color = !iconColor || iconColor.color === "" ? "#000000" : iconColor.color;
-      return React.createElement(NestedObject.default, {
-        height: actualIconSize,
-        width: actualIconSize,
-        color
-      });
-    } else {
-      console.error(`Icon ${iconName} not found`);
-      return null;
-    }
-  };
+  // const loadIcon = (iconName: string | undefined) => {
+  //   if (iconName === "None") return null;
+  //   const finalIconName = !iconName ? "ChatOutline" : iconName;
+  //   const NestedObject = (Icons as any)[finalIconName + 'Icon'] as unknown as {
+  //     default: React.ComponentType<{
+  //       height: string | number,
+  //       width: string | number,
+  //       color: string
+  //     }>
+  //   };
+  //   if (NestedObject && NestedObject.default) {
+  //     const color = !iconColor || iconColor.color === "" ? "#000000" : iconColor.color;
+  //     return React.createElement(NestedObject.default, {
+  //       height: actualIconSize,
+  //       width: actualIconSize,
+  //       color
+  //     });
+  //   } else {
+  //     console.error(`Icon ${iconName} not found`);
+  //     return null;
+  //   }
+  // };
 
   const getIconPosition = () => {
     const position = !iconPosition ? "center" : iconPosition;
@@ -119,9 +119,9 @@ const App: React.FC<AppProps> = ({ layout, interactions, options, rect }) => {
                 aria-label="menu"
                 onClick={() => !interactions.edit && handleClickOpen()}
               >
-                <span className="answers-for-sense-icon">
-                  {loadIcon(icon)}
-                </span>
+                {/* <span className="answers-for-sense-icon"> */}
+                  {/* {loadIcon(icon)} */}
+                {/* </span> */}
               </IconButton>
             </Box>
             <ThemeProvider theme={dialogTheme}>
@@ -152,7 +152,8 @@ const App: React.FC<AppProps> = ({ layout, interactions, options, rect }) => {
                     disabled={interactions.edit}
                     className="answers-for-sense-close-button"
                   >
-                    <CloseIcon height="16px" color={isDarkMode ? "#FFFFFF" : "#000000"} />
+                    {/* <CloseIcon height="16px" color={isDarkMode ? "#FFFFFF" : "#000000"} /> */}
+                    X
                   </IconButton>
                 </DialogTitle>
                 <DialogContent className="answers-for-sense-dialog-content">

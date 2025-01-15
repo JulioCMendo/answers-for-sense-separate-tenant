@@ -589,6 +589,62 @@ export default function ext() {
     },
     defaultValue: "",
   };
+  
+  const assistantHelpText = {
+    component: "text",
+    translation: "When using a formula to define the assistant, you need to ensure you provide a valid assistant ID.",
+    ref: "props.assistantHelpText",
+  };
+
+  const enableExtHost = {
+    component: "switch",
+    type: "boolean",
+    ref: "props.enableExternalHost",
+    translation: "Enable External Host?",
+    defaultValue: false,
+    options: [
+      {
+        value: true,
+      },
+      {
+        value: false,
+      },
+    ],
+  };
+
+  const externalHostHelpText = {
+    component: "text",
+    translation: "Use this option only when the Qlik Answers Assistant is hosted on a separate Qlik Cloud Tenant.",
+    ref: "props.externalHostHelpText",
+  };
+
+  const hostUrl = {
+    ref: "props.hostUrl",
+    type: "string",
+    translation: "Host URL",
+    placeholder: "https://...",
+    defaultValue: "",
+  };
+
+  const authMethod = {
+    component: "dropdown",
+    dropdownOnly: true,
+    type: "string",
+    ref: "props.authMethod",
+    translation: "Authentication Method",
+    defaultValue: "clientId",
+    options: [
+      { value: "clientId", label: "OAuth2 Client-ID" },
+      { value: "webIntegrationId", label: "Web Integration ID" },
+    ],
+  };
+
+  const authMethodId = {
+    ref: "props.authMethodId",
+    type: "string",
+    translation: "Authentication ID",
+    defaultValue: "",
+  };
 
   const icon = {
     component: "dropdown",
@@ -600,12 +656,6 @@ export default function ext() {
       return icons;
     },
     defaultValue: "ChatOutline",
-  };
-
-  const assistantHelpText = {
-    component: "text",
-    translation: "When using a formula to define the assistant, you need to ensure you provide a valid assistant ID.",
-    ref: "props.assistantHelpText",
   };
 
   const dialog = {
@@ -744,13 +794,33 @@ export default function ext() {
     },
   };
 
-
+  const extHostAndAuth = {
+    type: "items",
+    component: "items",
+    items: {
+      hostUrl,
+      authMethod,
+      authMethodId
+    },
+    show: (layout: Layout) => layout.props.enableExternalHost,
+  }
 
   const definition = {
     type: "items",
     component: "accordion",
     items: {
       settings,
+      externalHost: {
+        grouped: true,
+        type: "items",
+        label: "External Host & Authentication",
+        component: "items",
+        items: {
+          externalHostHelpText,
+          enableExtHost,
+          extHostAndAuth,
+        }
+      },
       assistant: {
         grouped: true,
         type: "items",
@@ -760,7 +830,7 @@ export default function ext() {
           assistantId,
           assistantHelpText,
         },
-      }
+      },
     },
   };
 

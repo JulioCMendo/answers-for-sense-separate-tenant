@@ -49,7 +49,6 @@
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.1.0",
     "@mui/material": "^6.1.0",
-    "@qlik-trial/sprout": "^3.29.0",
     "@qlik/api": "^1.18.0",
     "@qlik/embed-web-components": "^1.2.8",
     "@rollup/plugin-typescript": "^11.1.6",
