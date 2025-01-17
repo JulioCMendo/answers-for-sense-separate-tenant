@@ -542,7 +542,8 @@ const icons: Option[] = [
 
 
 export default function ext() {
-  const getAssistants = async () => {
+  const getAssistants = async (layout: Layout) => {
+    // to-do: implement this for oauth2 to fetch endpoint with authentication
     const headers = {
       'Content-Type': 'application/json',
     };
@@ -550,7 +551,15 @@ export default function ext() {
       method: 'GET',
       headers: headers,
     };
+
     let allAssistants: Option[] = [];
+    let baseUrl = '../api/v1/assistants';
+    if (layout.props.enableExternalHost && layout.props.hostUrl) {
+      // Safely strip any trailing slash, then add /api/v1/assistants
+      const trimmedHost = layout.props.hostUrl.replace(/\/+$/, '');
+      baseUrl = `https://${trimmedHost}/api/v1/assistants`;
+    }
+  
     const fetchPage = async (url: string) => {
       try {
         const response = await fetch(url, options);
@@ -562,6 +571,7 @@ export default function ext() {
           })));
           if (data.links.next && data.links.next.href) {
             await fetchPage(data.links.next.href);
+            console.log(data.links.next.href);
           }
         } else {
           throw new Error('Failed to fetch assistants');
@@ -571,7 +581,7 @@ export default function ext() {
       }
     };
     try {
-      await fetchPage('../api/v1/assistants');
+      await fetchPage(baseUrl);
       return allAssistants;
     } catch (error) {
       throw error;
@@ -579,14 +589,16 @@ export default function ext() {
   };
 
   const assistantId = {
-    component: "expression-with-dropdown",
-    dropdownOnly: false,
-    expressionType: "StringExpression",
+    // to-do: implement this for oauth2 to fetch endpoint with authentication
+    // component: "expression-with-dropdown",
+    // dropdownOnly: false,
+    // expressionType: "StringExpression",
+    type: "string",
     translation: "Assistant",
     ref: "props.assistantId",
-    options: () => {
-      return getAssistants();
-    },
+    // options: (layout: Layout) => {
+    //   return getAssistants(layout);
+    // },
     defaultValue: "",
   };
   
@@ -621,8 +633,8 @@ export default function ext() {
   const hostUrl = {
     ref: "props.hostUrl",
     type: "string",
-    translation: "Host URL",
-    placeholder: "https://...",
+    translation: "Cloud Tenant Host",
+    placeholder: "host.region.qlikcloud.com",
     defaultValue: "",
   };
 

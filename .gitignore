@@ -1,6 +1,6 @@
 node_modules
 .DS_Store
 yarn.lock
-answers-for-sense-ext
-answers-for-sense-ext.zip
+answers-for-sense-external-host-ext
+*.zip
 dist

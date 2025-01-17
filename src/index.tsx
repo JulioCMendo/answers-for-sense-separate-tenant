@@ -31,17 +31,33 @@ export default function supernova() {
             rect={rect}
           />
         );
-
+        console.log(layout.props.enableExternalHost, layout.props.authMethod);
+        console.log('v0.1.5');
         return () => {
           root.unmount();
         };
       }, [element, layout, interactions, rect, options]);
 
-      useEffect(() => {
-        // Set the necessary attributes for the web components
-        document.body.setAttribute('data-host', `https://${window.location.host}`);
-        document.body.setAttribute('data-cross-site-cookies', 'true');
-      }, []);
+      useEffect(() => {    
+        // Decide which host to use
+        let host;
+        if (layout.props.enableExternalHost && layout.props.hostUrl) {
+          // Safely strip any trailing slash
+          host = `https://${layout.props.hostUrl.replace(/\/+$/, '')}`;
+        } else {
+          host = `https://${window.location.host}`;
+        }
+        console.log(host);
+        document.body.setAttribute('data-qlik-embed-host', host);    
+        if (layout.props.authMethod === 'webIntegrationId') {
+          document.body.setAttribute('data-qlik-embed-web-integration-id', layout.props.authMethodId || '');
+        } else if (layout.props.authMethod === 'clientId') {
+          document.body.setAttribute('data-qlik-embed-client-id', layout.props.authMethodId || '');
+        }
+    
+        document.body.setAttribute('data-qlik-embed-cross-site-cookies', 'true');
+      }, [layout.props.enableExternalHost, layout.props.hostUrl, layout.props.authMethod, layout.props.authMethodId]);
+    
     },
     ext: ext(),
   };
