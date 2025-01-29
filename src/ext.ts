@@ -644,9 +644,9 @@ export default function ext() {
     type: "string",
     ref: "props.authMethod",
     translation: "Authentication Method",
-    defaultValue: "clientId",
+    defaultValue: "webIntegrationId",
     options: [
-      { value: "clientId", label: "OAuth2 Client-ID" },
+      // { value: "clientId", label: "OAuth2 Client-ID" },
       { value: "webIntegrationId", label: "Web Integration ID" },
     ],
   };

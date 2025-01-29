@@ -51,9 +51,10 @@ export default function supernova() {
         document.body.setAttribute('data-qlik-embed-host', host);    
         if (layout.props.authMethod === 'webIntegrationId') {
           document.body.setAttribute('data-qlik-embed-web-integration-id', layout.props.authMethodId || '');
-        } else if (layout.props.authMethod === 'clientId') {
-          document.body.setAttribute('data-qlik-embed-client-id', layout.props.authMethodId || '');
-        }
+        } 
+        // else if (layout.props.authMethod === 'clientId') {
+        //   document.body.setAttribute('data-qlik-embed-client-id', layout.props.authMethodId || '');
+        // }
     
         document.body.setAttribute('data-qlik-embed-cross-site-cookies', 'true');
       }, [layout.props.enableExternalHost, layout.props.hostUrl, layout.props.authMethod, layout.props.authMethodId]);
